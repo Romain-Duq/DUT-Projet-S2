@@ -2,18 +2,30 @@ import java.util.Random;
 
 public class SuperPlateau {
 	private Plateau map;
-	private int taille;
-	private int nbRocher;
+	int taille;
+	int nbRocher;
 	private Parcelle[][] parcelle;
-	private final String[] images = { "images/eau.png", "images/herbe.png", "images/rocher.png","images/bateau1.png","images/bateau2.png","images/cle.png","images/coffre.png"};
-
-
-	public SuperPlateau( int taille, float proportion) {
+	
+	/**
+     * Création du plateau
+     * 
+     * @param images
+     *            Tableau d'images
+     * @param taille
+     * 			  Taille du plateau
+     * @param proportion
+     * 			   Proportion des rochers
+     */
+	public SuperPlateau(String[] images, int taille, float proportion) {
 		this.taille = taille;
 		this.nbRocher = (int) ((taille - 2) * (taille - 2) * (proportion / 100));
 		this.parcelle = genMap(taille);
-		this.map = new Plateau(this.images, taille);
+		this.map = new Plateau(images, taille);
 	}
+	
+	/**
+     * Modification du plateau
+     */
 
 	public void setJeu() {
 		int[][] type = new int[taille + 2][taille + 2];
@@ -25,9 +37,20 @@ public class SuperPlateau {
 		this.map.setJeu(type);
 	}
 
+	/**
+     * Affichage du plateau
+     */
 	public void afficher() {
 		this.map.affichage();
 	}
+	
+	/**
+     * Répartition des objets
+     * 
+     * @param taille
+     * 			  Taille du plateau
+     * @return Tableau contenant le plateau de jeu rempli
+     */
 
 	private Parcelle[][] genMap(int taille) {
 		Parcelle[][] parcelle = new Parcelle[taille][taille];
@@ -43,7 +66,9 @@ public class SuperPlateau {
 																					// mer
 						parcelle[i][j] = new Parcelle(Parcelle.EAU);
 					} else {
-						parcelle[i][j] = new Parcelle(Parcelle.HERBE); // Le reste de
+						parcelle[i][j] = new Parcelle(Parcelle.HERBE); // Le
+																		// reste
+																		// de
 																		// l'ile
 																		// est
 																		// de
@@ -52,7 +77,7 @@ public class SuperPlateau {
 				}
 			}
 			Random rdm = new Random();
-			parcelle[rdm.nextInt(taille - 2) + 1][0] = new Parcelle(Parcelle.BATEAUTeam1); // une
+			parcelle[rdm.nextInt(taille - 2) + 1][0] = new Parcelle(4); // une
 																		// position
 																		// random
 																		// en
@@ -62,7 +87,7 @@ public class SuperPlateau {
 																		// le
 																		// bateau
 																		// 1
-			parcelle[rdm.nextInt(taille - 2) + 1][taille - 1] = new Parcelle(Parcelle.BATEAUTeam2); // une
+			parcelle[rdm.nextInt(taille - 2) + 1][taille - 1] = new Parcelle(5); // une
 																					// position
 																					// random
 																					// en
@@ -84,7 +109,8 @@ public class SuperPlateau {
 																// qu'il ne
 																// bloque pas un
 																// bateau.
-					parcelle[x][y].changerParcelle(new Parcelle(Parcelle.ROCHER));
+					parcelle[x][y]
+							.changerParcelle(new Parcelle(Parcelle.ROCHER));
 					rocher++;
 				}
 			}
@@ -103,12 +129,12 @@ public class SuperPlateau {
 
 		for (int i = 0; i < parcelle.length; i++) {
 			for (int j = 0; j < parcelle.length; j++) {
-				if (parcelle[i][j].isRocher()) {
+				if (parcelle[i][j].getNumImage() == 3) {
 					if (tresor == cpt) {
-						parcelle[i][j].setContenu("clÃ©"); // on met la clÃ© dans un
+						parcelle[i][j].putIn("clÃ©"); // on met la clÃ© dans un
 														// rocher
 					} else if (coffre == cpt) {
-						parcelle[i][j].setContenu("coffre"); // on met le coffre dans
+						parcelle[i][j].putIn("coffre"); // on met le coffre dans
 														// un rocher
 					}
 					cpt++;
@@ -119,6 +145,14 @@ public class SuperPlateau {
 		return parcelle;
 	}
 
+	/**
+     * Vérification de l'accessabilité du plateau
+     * 
+     * @param parcelle
+     *            Tableau de parcelle représentant le plateau
+     *  @return 
+     *  		   Vrai ou Faux
+     */
 	private boolean genDone(Parcelle[][] parcelle) {
 		int[][] tableau = new int[taille - 2][taille - 2];
 		boolean bateau1 = false;
@@ -132,7 +166,7 @@ public class SuperPlateau {
 			estBloque = true;
 			for (int i = 0; i < tableau.length; i++) {
 				for (int j = 0; j < tableau.length; j++) {
-					if (parcelle[i + 1][j + 1].isRocher()) {
+					if (parcelle[i + 1][j + 1].getNumImage() == 3) {
 						if (parcelle[i + 2][j + 1].getTraversable() == false
 								&& parcelle[i][j + 1].getTraversable() == false
 								&& parcelle[i + 1][j + 2].getTraversable() == false
