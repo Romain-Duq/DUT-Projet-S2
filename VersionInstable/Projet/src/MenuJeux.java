@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,7 +12,7 @@ public class MenuJeux extends JPanel implements ActionListener{
 	
 	Joueur joueur;
 	boolean continu = true;
-	int nbDeplacement, conteurDeplacement, numeroPersonnage;
+	int numeroPersonnage;
 		
 	JButton droit = new JButton(new ImageIcon("images/button/flecheDroite.png"));
 	JButton haut = new JButton(new ImageIcon("images/button/flecheHaut.png"));
@@ -22,15 +23,12 @@ public class MenuJeux extends JPanel implements ActionListener{
 	
 	public MenuJeux(){
 		this.setLayout(null);
-		this.setBackground(new Color(251, 228, 176));
-		this.setBackground(Color.blue);
-
 		this.droit.setBounds(30, 82, 32, 32);
 		this.haut.setBounds( 62, 50, 32, 32);
 		this.action.setBounds(62, 82, 32, 32);
 		this.bas.setBounds( 62, 112, 32, 32);
 		this.gauche.setBounds(94, 82, 32, 32);
-		this.passer.setBounds(12, 12, 135, 32);
+		this.passer.setBounds( 7, 7, 137, 32);
 		
 		this.droit.addActionListener(this);
 		this.haut.addActionListener(this);
@@ -48,18 +46,43 @@ public class MenuJeux extends JPanel implements ActionListener{
 	}
 	
 	public void paintComponent(Graphics g){
-		System.out.println();
-		g.drawImage(new ImageIcon("images/menu/FondButton.png").getImage(), 0, 0, null);
-		g.drawImage(new ImageIcon("images/menu/FondPersonnage.png").getImage(), 0, 156, null);
-		g.drawImage(DessinCarte.IMAGE.get(joueur.personnages.get(this.numeroPersonnage).image), 10, 170, null);
-		g.drawString("PM : " + (this.nbDeplacement - this.conteurDeplacement), 70, 170);
+		//g.drawImage(new ImageIcon("images/menu/FondButton.png").getImage(), 0, 0, null);
+		g.setColor(new Color(223, 192, 118));
+		g.fillRect( 0, 0, 156, this.getHeight());
+		g.setColor(Color.white);
+		g.draw3DRect(5, 5, 140, 146, false);
+		g.draw3DRect(6, 6, 138, 144, false);
+		g.fillRect( 7, 7, 136, 142);
+		for (int i = 0; i < 3; i++) {
+			dessinFichePersonnage(g, i);
+		}
 	}
+	
+	private void dessinFichePersonnage(Graphics g, int num){
+		if(this.joueur.personnages.get(num).estSelect && this.joueur.personnages.get(num).color == Joueur.couleur[0]){
+			g.setColor(Color.RED);
+		}else if(this.joueur.personnages.get(num).estSelect && this.joueur.personnages.get(num).color == Joueur.couleur[1]){
+			g.setColor(Color.BLUE);
+		}else{
+			g.setColor(Color.WHITE);
+		}
+		g.draw3DRect( 6, 160 + (74 * num), 140, 64, false);
+		g.draw3DRect( 7, 161 + (74 * num), 138, 62, false);
 		
-	public void setJoueur(Joueur joueur, int nbDeplacement, int numeroPersonnage){
+		g.setColor(Color.WHITE);
+		g.fillRect( 8, 162 + (74 * num), 136, 60);
+		
+		g.setColor(Color.black);
+		g.drawImage(DessinCarte.IMAGE.get(this.joueur.personnages.get(num).image), 10, 185 + (74 * num), null);
+		g.setFont(new Font("Verdana", Font.BOLD, 12));
+		g.drawString(this.joueur.personnages.get(num).nom, 10, 180 + (74 * num));
+		g.drawString("PM : " + this.joueur.personnages.get(num).nbdeplacement, 70, 200 + (74 * num));
+		
+	}
+			
+	public void setJoueur(Joueur joueur, int numeroPersonnage){
 		this.joueur = joueur;
-		this.nbDeplacement = nbDeplacement;
 		this.numeroPersonnage = numeroPersonnage;
-		this.conteurDeplacement = 0;
 		continu = true;
 	}
 
@@ -69,31 +92,31 @@ public class MenuJeux extends JPanel implements ActionListener{
 			System.exit(0);
 		}
 		if(e.getSource() == this.passer){
-			conteurDeplacement = nbDeplacement + 1;
-		}else if(conteurDeplacement <= nbDeplacement){
+			this.joueur.personnages.get(numeroPersonnage).nbdeplacement = 0;
+		}else if(this.joueur.personnages.get(numeroPersonnage).nbdeplacement  > 0){
 			if(e.getSource() == this.bas){
 				boolean aBouger = joueur.moouveBas(this.numeroPersonnage);
 				if(aBouger){
-					conteurDeplacement++;
+					this.joueur.personnages.get(numeroPersonnage).nbdeplacement--;
 				}	
 			}else if(e.getSource() == this.haut){
 				boolean aBouger = joueur.mouveHaut(this.numeroPersonnage);
 				if(aBouger){
-					conteurDeplacement++;
+					this.joueur.personnages.get(numeroPersonnage).nbdeplacement--;
 				}
 			}else if(e.getSource() == this.gauche){
 				boolean aBouger = joueur.mouveGauche(this.numeroPersonnage);
 				if(aBouger){
-					conteurDeplacement++;
+					this.joueur.personnages.get(numeroPersonnage).nbdeplacement--;
 				}
 			}else if(e.getSource() == this.droit){
 				boolean aBouger = joueur.moouveDroit(this.numeroPersonnage);
 				if(aBouger){
-					conteurDeplacement++;
+					this.joueur.personnages.get(numeroPersonnage).nbdeplacement--;
 				}
 			}
 		}
-		if(conteurDeplacement >= nbDeplacement){
+		if(this.joueur.personnages.get(numeroPersonnage).nbdeplacement  <= 0){
 			this.continu = false;
 		}
 	}

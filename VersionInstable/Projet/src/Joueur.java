@@ -17,9 +17,9 @@ public class Joueur {
 		this.pseudo = pseudo;
 		this.color = couleur[numJoueur];
 		this.carte = carte;
-		this.personnages.add(new Personnage(Personnage.ExplorateurBas, this.color));
-		this.personnages.add(new Personnage(Personnage.ExplorateurBas, this.color));
-		this.personnages.add(new Personnage(Personnage.ExplorateurBas, this.color));
+		this.personnages.add(new Personnage("Explorateur", Personnage.ExplorateurBas, this.color));
+		this.personnages.add(new Personnage("Explorateur", Personnage.ExplorateurBas, this.color));
+		this.personnages.add(new Personnage("Explorateur", Personnage.ExplorateurBas, this.color));
 		this.bateau = carte.bateau[numJoueur];
 		for (int i = 0; i < personnages.size(); i++) {
 			if(carte.parcelles[bateau.pos_x][bateau.pos_y + 1].traversable){
