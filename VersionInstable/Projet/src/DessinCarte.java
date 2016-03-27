@@ -106,6 +106,9 @@ public class DessinCarte extends JPanel {
 		IMAGE.put(Bateau.BATEAUFace, new ImageIcon("images/bateauFace.png").getImage());
 		IMAGE.put(Bateau.BATEAUDos, new ImageIcon("images/bateauDos.png").getImage());
 		
-		IMAGE.put(Personnage.ExplorateurBas, new ImageIcon("images/Explorateur/Down.png").getImage());
+		IMAGE.put(Personnage.Explorateur[0], new ImageIcon("images/Explorateur/Down.png").getImage());
+		IMAGE.put(Personnage.Explorateur[1], new ImageIcon("images/Explorateur/Up.png").getImage());
+		IMAGE.put(Personnage.Explorateur[2], new ImageIcon("images/Explorateur/Right.png").getImage());
+		IMAGE.put(Personnage.Explorateur[3], new ImageIcon("images/Explorateur/Left.png").getImage());
 	}
 }

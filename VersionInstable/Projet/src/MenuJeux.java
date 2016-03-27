@@ -96,20 +96,24 @@ public class MenuJeux extends JPanel implements ActionListener{
 		}else if(this.joueur.personnages.get(numeroPersonnage).nbdeplacement  > 0){
 			if(e.getSource() == this.bas){
 				boolean aBouger = joueur.moouveBas(this.numeroPersonnage);
+				this.joueur.personnages.get(numeroPersonnage).setOrientation(Personnage.BAS);
 				if(aBouger){
 					this.joueur.personnages.get(numeroPersonnage).nbdeplacement--;
 				}	
 			}else if(e.getSource() == this.haut){
 				boolean aBouger = joueur.mouveHaut(this.numeroPersonnage);
+				this.joueur.personnages.get(numeroPersonnage).setOrientation(Personnage.HAUT);
 				if(aBouger){
 					this.joueur.personnages.get(numeroPersonnage).nbdeplacement--;
 				}
 			}else if(e.getSource() == this.gauche){
 				boolean aBouger = joueur.mouveGauche(this.numeroPersonnage);
+				this.joueur.personnages.get(numeroPersonnage).setOrientation(Personnage.GAUCHE);
 				if(aBouger){
 					this.joueur.personnages.get(numeroPersonnage).nbdeplacement--;
 				}
 			}else if(e.getSource() == this.droit){
+				this.joueur.personnages.get(numeroPersonnage).setOrientation(Personnage.DROITE);
 				boolean aBouger = joueur.moouveDroit(this.numeroPersonnage);
 				if(aBouger){
 					this.joueur.personnages.get(numeroPersonnage).nbdeplacement--;

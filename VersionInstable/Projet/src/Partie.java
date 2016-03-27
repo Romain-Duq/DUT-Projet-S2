@@ -11,7 +11,7 @@ public class Partie {
 		this.carte = new Carte(20, 20); // on cree la carte
 		this.dessinCarte = new DessinCarte(carte); // on genere l'afficheur
 		
-		this.fenetre = new Fenetre("fenetre", this.dessinCarte, this.menu);
+		this.fenetre = new Fenetre( this.dessinCarte, this.menu);
 		//fenetre.fullScrean();
 		
 		// on cree les joueur

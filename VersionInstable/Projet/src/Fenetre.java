@@ -5,8 +5,8 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class Fenetre extends JFrame {
 	
-	public Fenetre(String titre, JPanel carte, JPanel menu){
-		this.setTitle(titre);
+	public Fenetre(JPanel carte, JPanel menu){
+		this.setTitle("treasurehunt");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//this.setUndecorated(true);
 		this.setResizable(false);
