@@ -1,47 +1,41 @@
 
-public class Personnage {
-	private Parcelle parcelle;
-	private int numPerso;
-		static int CHERCHER = 1;
-		static int VOLEUR = 2;
-	private int orientation;
-		static int NORTH = 1; // nord
-		static int WEST = 2; // ouest
-		static int EAST = 3; // est
-		static int SOUTH = 4; // sud
-	private int vie;
+public class Personnage extends Element {
+	int pos_x, pos_y, nbdeplacement, oriantation;
+	boolean estSelect = false;
+	String[] tabImage;
+	String color;
+	String nom;
 	
-	/**
-	 * Création du personnage
-	 * 
-	 * @param typePerso
-	 * 		Type de personnage
-	 *  @param orientation
-	 * 		Quelle Direction il va
-	 */
-	public Personnage(int typePerso, int orientation){
-		this.numPerso = typePerso;
-		this.orientation = orientation;
-		this.vie = 100;	
-		this.parcelle = new Parcelle(orientation + 4);
+	static int BAS = 0;
+	static int HAUT = 1;
+	static int GAUCHE = 2;
+	static int DROITE = 3;
+	
+	static String EXPLORATEUR = "Explorateur";
+	static String[] Explorateur = new String[]{"ExploBas", "ExploHaut", "ExploGauche", "ExploDroite"};
+
+	public Personnage(String nom, int oriantation, String color) {
+		super(null);
+		if (nom == Personnage.EXPLORATEUR){
+			this.image = Explorateur[oriantation];
+		}
+	
+		this.nom = nom;
+		this.color = color;
+		this.nbdeplacement = 3;
 	}
 	
-	/**
-	 * Changer l'orientation
-	 * 
-	 *  @param orientation
-	 * 		nouvelle direction
-	 */
-	
-	public void changerOrientation(int orientation){
-		this.orientation = orientation;
+	public void setOrientation(int oriantation){
+		if (this.nom == Personnage.EXPLORATEUR){
+			this.image = Explorateur[oriantation];
+		}
 	}
-	/**
-	 * Savoir la vie du personnage
-	 * 
-	 * @return vie du personnage
-	 */
-	public int getVie(){
-		return vie;
+	public int getOrientation(){
+		return oriantation;
+	}
+	
+	public void setPosition(int pos_x, int pos_y){
+		this.pos_x = pos_x;
+		this.pos_y = pos_y;
 	}
 }

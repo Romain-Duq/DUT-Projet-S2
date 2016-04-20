@@ -1,83 +1,37 @@
-public class Parcelle{
-	int numImage;
-	boolean traversable = false;
-	String contenu = "";
 
-	final static int EAU = 1;
-	final static int HERBE = 2;
-	final static int ROCHER = 3;
-
-	/**
-	 * CrÈation des parcelles de jeu
-	 * 
-	 * @param type
-	 *           Type de parcelle(eau,herbe,rocher)
-	 */
-
-	public Parcelle(int type){
-		this.numImage = type;
-		if(type == 2){this.traversable = true;}
+public class Parcelle {
+	String fond;
+	Element contenu;
+	boolean traversable, brouillar;
+	
+	int pos_x, pos_y;
+	
+	static String EAU = "eau";
+	static String HERBE = "herbe";
+	static String PLAGEBas = "plageBas";
+	static String PLAGEHaut = "plageHaut";
+	static String PLAGEGauche = "plageGauche";
+	static String PLAGEDroite = "plageDroite";
+	static String PLAGEANGLEHautGauche = "plageAngleHautGauche";
+	static String PLAGEANGLEHautDroite = "plageAngleHautDroite";
+	static String PLAGEANGLEBasGauche = "plageAngleBasGauche";
+	static String PLAGEANGLEBasDroite = "plageAngleBasDroite";
+	
+	public Parcelle(Element contenu, String fond, boolean traversable, int pos_x, int pos_y) {
+		this.pos_x = pos_x;
+		this.pos_y = pos_y;
+		this.contenu = contenu;
+		this.fond = fond;
+		this.traversable = traversable;
+		this.brouillar = true;
 	}
 	
-	/**
-	 * Changement du type de parcelle
-	 * 
-	 * @param parcelle
-	 *           Parcelle a changer
-	 */
-
-	public void changerParcelle(Parcelle parcelle){
-		this.numImage = parcelle.numImage;
-		this.traversable = parcelle.traversable;
-		this.contenu = parcelle.contenu;
-	}
-	
-	/**
-	 *NumÈro d'image
-	 * 
-	 * @return le chiffre correspondant au type de parcelle
-	 */
-
-
-	public int getNumImage(){
-		if(this.contenu.length() ==0){
-			return this.numImage;
-		}else if(contenu.equals("coffre")){
-			return 6;
-		}else if(contenu.equals("cl√©")){
-			return 7;
-		}
-		return 0;
+	public Parcelle(String fond, boolean traversable, int pos_x, int pos_y){
+		this(new Element(Element.VIDE), fond, traversable, pos_x, pos_y);
 	}
 
-	/**
-	 * Savoir si c'est traversable
-	 * 
-	 * @return Vrai pour traverser, faux sinon
-	 */
-	public boolean getTraversable(){
-		return traversable;
-	}
-	
-	
-	/**
-	 * Savoir si c'est un bateau
-	 * 
-	 * @return Vrai si c'est un bateau, faux sinon
-	 */
-	public boolean isBateau(){
-		return this.numImage==4||this.numImage==5;
-	}
-	
-	/**
-	 *Ajouter un contenu
-	 *
-	 *@param s
-	 *		Ce que l'on veut ajouter
-	 */
-
-	public void putIn(String s){
-		this.contenu = s; // pour ajouter des coffres/cl√©s/pi√®ges etc..
+	public void addContenu(Element contenu , boolean traversable){
+		this.contenu = contenu;
+		this.traversable = traversable;
 	}
 }
-
