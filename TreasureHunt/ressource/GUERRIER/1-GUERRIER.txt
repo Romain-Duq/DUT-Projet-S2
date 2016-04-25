@@ -1,0 +1,6 @@
+vie : 200
+enegie : 100
+Deplacement : ligne droite
+PM : 2
+Action : frapper, un enemier ou baricade (25 d'enegie)(50 degas)
+	 mur, pausse une baricade (50 d'enegie)
