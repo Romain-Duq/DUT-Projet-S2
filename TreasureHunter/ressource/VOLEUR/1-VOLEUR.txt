@@ -1,0 +1,6 @@
+vie : 50
+energie : 100
+Deplacement : ligne droite
+PM : 4
+Action : voler, vole un enemie (25 d'energie)
+	 invisible , et invsible pandant 3 tour (50 d'energie)

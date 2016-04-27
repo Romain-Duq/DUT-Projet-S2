@@ -1,0 +1,6 @@
+vie : 50
+energie : 100
+Deplacement : ligne droite
+PM : 3
+Action : piege, pausse un piege (25 d'enegie) (200 degas)
+	 scan, regarde si il n'y a pas de piege (10 d'enegie)

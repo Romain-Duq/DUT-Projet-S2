@@ -1,0 +1,6 @@
+vie : 100
+enegie : 100
+Deplacement : ligne droite
+PM : 3
+Action : fouiller, cherche sous un rocher le coffre et la cle (10 d'enegie)
+	 Balise, pause une balise pour laisser la map visible (25 d'enegie)
